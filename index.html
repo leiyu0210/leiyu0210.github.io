@@ -3,509 +3,598 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yu Lei | Personal Homepage</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+  <title>Yu Lei</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    *, *::before, *::after { box-sizing: border-box; }
     :root {
-      --bg:      #0a0e17;
-      --bg2:     #0f1521;
-      --bg3:     #151d2e;
-      --border:  #1e2d45;
-      --border2: #243350;
-      --accent:  #4d9fff;
-      --accent2: #a78bfa;
-      --text:    #dce8f8;
-      --text2:   #7a90b0;
-      --text3:   #4d6280;
-      --oral:    #f59e0b;
-      --green:   #34d399;
-      --glow:    rgba(77,159,255,0.15);
+      --bg: #f7f8fb;
+      --surface: #ffffff;
+      --line: #dce4ed;
+      --line-strong: #c4cfdb;
+      --text: #17202f;
+      --body: #344054;
+      --muted: #667085;
+      --soft: #8a98a8;
+      --accent: #1d4ed8;
+      --green: #0f766e;
+      --green-soft: #e7f4f1;
+      --blue-soft: #eaf1ff;
+      --shadow: 0 18px 55px rgba(23, 32, 47, 0.08);
     }
-
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'Inter', sans-serif;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
-      min-height: 100vh;
-      overflow-x: hidden;
     }
-
-    /* ── AMBIENT BLOBS ── */
-    .blob {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(120px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.5;
+    a { color: inherit; text-decoration: none; }
+    a:hover { color: var(--accent); }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(247, 248, 251, 0.9);
+      border-bottom: 1px solid rgba(220, 228, 237, 0.85);
+      backdrop-filter: blur(18px);
     }
-    .blob-1 {
-      width: 600px; height: 600px;
-      background: radial-gradient(circle, rgba(77,159,255,0.12), transparent 70%);
-      top: -100px; right: -100px;
-      animation: drift1 18s ease-in-out infinite alternate;
+    .nav, main, footer {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
     }
-    .blob-2 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(167,139,250,0.10), transparent 70%);
-      bottom: 20%; left: -80px;
-      animation: drift2 22s ease-in-out infinite alternate;
+    .nav {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
     }
-    @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(-40px,60px) scale(1.1); } }
-    @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(50px,-40px) scale(1.08); } }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      background: rgba(10,14,23,0.80);
-      backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2.5rem;
-      height: 58px;
-      display: flex; align-items: center; justify-content: space-between;
+    .brand {
+      font-weight: 750;
+      white-space: nowrap;
+      letter-spacing: 0;
     }
-    .nav-logo {
-      font-weight: 700; font-size: 1rem;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      letter-spacing: 0.02em;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 14px;
     }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a {
-      color: var(--text2); text-decoration: none; font-size: 0.85rem;
-      font-weight: 500; transition: color 0.2s; letter-spacing: 0.02em;
-    }
-    .nav-links a:hover { color: var(--text); }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding-top: 58px;
-      position: relative;
-    }
-    .hero-inner {
-      max-width: 1060px; margin: 0 auto; padding: 5rem 2.5rem;
-      display: flex; align-items: center; gap: 6rem; flex-wrap: wrap;
-      position: relative; z-index: 1;
-    }
-
-    /* Photo */
-    .hero-photo-wrap { flex-shrink: 0; position: relative; }
-    .hero-photo-ring {
-      width: 188px; height: 188px;
-      border-radius: 50%; padding: 2.5px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-      box-shadow: 0 0 0 1px rgba(77,159,255,0.12), 0 0 60px rgba(77,159,255,0.20);
-      animation: ring-pulse 4s ease-in-out infinite;
-    }
-    @keyframes ring-pulse {
-      0%,100% { box-shadow: 0 0 0 1px rgba(77,159,255,0.12), 0 0 60px rgba(77,159,255,0.20); }
-      50%      { box-shadow: 0 0 0 1px rgba(167,139,250,0.18), 0 0 80px rgba(167,139,250,0.28); }
-    }
-    .hero-photo {
-      width: 100%; height: 100%;
-      border-radius: 50%; object-fit: cover; object-position: center top;
-      display: block; background: var(--bg3);
-    }
-    /* decorative ring */
-    .hero-photo-wrap::before {
-      content: '';
-      position: absolute; inset: -14px;
-      border-radius: 50%;
-      border: 1px dashed rgba(77,159,255,0.18);
-      animation: slow-spin 30s linear infinite;
-    }
-    @keyframes slow-spin { to { transform: rotate(360deg); } }
-
-    /* Text */
-    .hero-text { flex: 1; min-width: 280px; }
-    .hero-eyebrow {
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .hero-eyebrow::before {
-      content: ''; width: 20px; height: 1px; background: var(--accent); display: inline-block;
-    }
-    .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.6rem, 5vw, 3.8rem);
-      font-weight: 700; line-height: 1.08;
-      color: var(--text);
-      margin-bottom: 1rem;
-      letter-spacing: -0.01em;
-    }
-    .hero-tagline {
-      font-size: 0.93rem; color: var(--text2);
-      margin-bottom: 1.5rem; max-width: 500px; line-height: 1.8;
-    }
-
-    /* Reviewer row */
-    .reviewer-row {
-      display: flex; align-items: center; gap: 0.5rem;
-      flex-wrap: wrap; margin-bottom: 1.5rem;
-    }
-    .reviewer-label {
-      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--text3); margin-right: 0.2rem;
-    }
-    .reviewer-chip {
-      font-size: 0.72rem; font-weight: 600;
-      padding: 0.22rem 0.65rem; border-radius: 5px;
-      background: rgba(77,159,255,0.06);
-      border: 1px solid rgba(77,159,255,0.18);
-      color: var(--text2);
-      letter-spacing: 0.03em;
-    }
-
-    .research-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 2rem; }
-    .rtag {
-      background: rgba(77,159,255,0.06);
-      border: 1px solid rgba(77,159,255,0.18);
-      color: var(--accent);
-      padding: 0.28rem 0.85rem;
-      border-radius: 99px; font-size: 0.78rem; font-weight: 500;
-      letter-spacing: 0.01em;
-    }
-
-    .hero-links { display: flex; gap: 0.65rem; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.45rem;
-      padding: 0.55rem 1.25rem; border-radius: 8px;
-      font-size: 0.85rem; font-weight: 600; text-decoration: none;
-      transition: all 0.22s; border: 1px solid transparent; cursor: pointer;
-      letter-spacing: 0.01em;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #6b8fff);
-      color: #fff;
-      box-shadow: 0 0 20px rgba(77,159,255,0.25);
-    }
-    .btn-primary:hover { box-shadow: 0 0 30px rgba(77,159,255,0.45); transform: translateY(-1px); }
-    .btn-outline {
-      border-color: var(--border2); color: var(--text2); background: rgba(255,255,255,0.02);
-    }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: rgba(77,159,255,0.05); }
-
-    /* ── SECTIONS ── */
-    section { padding: 5.5rem 2.5rem; position: relative; z-index: 1; }
-    .container { max-width: 840px; margin: 0 auto; }
-    .section-title {
-      font-size: 1.3rem; font-weight: 700; margin-bottom: 2.2rem;
-      display: flex; align-items: center; gap: 1rem; color: var(--text);
-      letter-spacing: -0.01em;
-    }
-    .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border2), transparent); }
-
-    /* ── PUBLICATIONS ── */
-    #publications { background: transparent; }
-
-    #publications .container { counter-reset: pub-counter; }
-    .pub-year-group { margin-bottom: 2.8rem; }
-    .pub-year-label {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--text3);
-      margin-bottom: 0.6rem;
-      display: flex; align-items: center; gap: 0.75rem;
-    }
-    .pub-year-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-    .pub-item {
-      counter-increment: pub-counter;
+    .hero {
+      min-height: calc(100vh - 58px);
       display: grid;
-      grid-template-columns: 32px 1fr;
-      gap: 0 1.1rem;
-      padding: 1rem 0.75rem 1rem 0;
-      border-bottom: 1px solid rgba(30,45,69,0.6);
-      border-radius: 6px;
-      transition: background 0.2s;
-      position: relative;
+      grid-template-columns: minmax(0, 1fr) 270px;
+      gap: 76px;
+      align-items: center;
+      padding: 72px 0 64px;
+      border-bottom: 1px solid var(--line);
     }
-    .pub-item::before {
-      content: '';
-      position: absolute; left: -12px; top: 0; bottom: 0;
-      width: 2px; border-radius: 2px;
-      background: transparent;
-      transition: background 0.2s;
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 800;
     }
-    .pub-item:hover { background: rgba(77,159,255,0.03); }
-    .pub-item:hover::before { background: linear-gradient(to bottom, var(--accent), var(--accent2)); }
-    .pub-item:last-child { border-bottom: none; }
-
-    .pub-index {
-      width: 28px; height: 28px; flex-shrink: 0;
-      background: rgba(77,159,255,0.07);
-      border: 1px solid rgba(77,159,255,0.15);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.68rem; font-weight: 700; color: var(--text3);
-      margin-top: 0.15rem;
+    h1 {
+      margin: 0;
+      font-size: clamp(46px, 6vw, 72px);
+      line-height: 1.02;
+      letter-spacing: 0;
     }
-    .pub-index::before { content: counter(pub-counter); }
-
-    .pub-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.4rem; }
-
+    .headline {
+      max-width: 780px;
+      margin: 18px 0 0;
+      color: #2f3b4d;
+      font-size: clamp(20px, 2vw, 28px);
+      line-height: 1.46;
+      font-weight: 680;
+    }
+    .intro {
+      max-width: 780px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      border-radius: 8px;
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 750;
+      box-shadow: 0 8px 24px rgba(23, 32, 47, 0.05);
+    }
+    .button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #ffffff;
+    }
+    .profile { justify-self: end; }
+    .profile-photo {
+      width: 250px;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border-radius: 8px;
+      background: #e8edf3;
+      box-shadow: var(--shadow);
+    }
+    .profile-meta {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .profile-meta strong {
+      display: block;
+      color: var(--text);
+      font-size: 15px;
+    }
+    section {
+      padding: 56px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 32px;
+      align-items: start;
+      margin-bottom: 26px;
+    }
+    h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+    .section-note {
+      max-width: 780px;
+      margin: 0;
+      color: var(--muted);
+    }
+    .section-note + .section-note { margin-top: 16px; }
+    .content-indent { margin-left: 212px; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .metric {
+      padding: 15px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    .metric strong {
+      display: block;
+      color: var(--text);
+      font-size: 18px;
+    }
+    .metric span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .focus-list {
+      display: grid;
+      gap: 36px;
+    }
+    .focus-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 16px;
+      padding: 30px 0 0;
+      border-top: 1px solid var(--line);
+    }
+    .focus-item h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.35;
+    }
+    .focus-summary {
+      margin: 8px 0 0;
+      color: var(--body);
+    }
+    .focus-points {
+      margin: 14px 0 0;
+      padding-left: 20px;
+      color: var(--body);
+    }
+    .focus-points li + li { margin-top: 6px; }
+    .source {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 12px;
+      row-gap: 4px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .source span + span {
+      padding-left: 12px;
+      border-left: 1px solid var(--line-strong);
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: #475467;
+      font-size: 13px;
+      font-weight: 650;
+    }
+    .pub-group {
+      margin-top: 20px;
+    }
+    .pub-group-title {
+      margin: 0 0 2px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .pub-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .pub {
+      display: grid;
+      grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
+      gap: 18px;
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+    .pub-badges {
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-width: 0;
+    }
     .badge {
-      padding: 0.16rem 0.55rem; border-radius: 4px;
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.25;
     }
-    .badge-venue   { background: rgba(77,159,255,0.08);  border: 1px solid rgba(77,159,255,0.22);  color: var(--accent); }
-    .badge-oral    { background: rgba(245,158,11,0.08);  border: 1px solid rgba(245,158,11,0.22);  color: var(--oral); }
-    .badge-preprint{ background: rgba(122,144,176,0.08); border: 1px solid rgba(122,144,176,0.2);  color: var(--text3); }
-    .badge-cofirst { background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.22); color: var(--accent2); }
-    .badge-journal { background: rgba(52,211,153,0.08);  border: 1px solid rgba(52,211,153,0.22);  color: var(--green); }
-
+    .badge.role { background: var(--green-soft); color: var(--green); }
+    .badge.venue { background: var(--blue-soft); color: var(--accent); }
+    .badge.submitted { background: #f0f2f5; color: #536071; }
     .pub-title {
-      font-size: 0.93rem; font-weight: 600; color: var(--text);
-      line-height: 1.48; margin-bottom: 0.3rem; letter-spacing: -0.005em;
+      margin: 0;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 750;
+      line-height: 1.45;
     }
     .pub-title a {
-      color: inherit; text-decoration: none;
-      background-image: linear-gradient(var(--accent), var(--accent));
-      background-size: 0 1px; background-repeat: no-repeat;
-      background-position: 0 100%;
-      transition: color 0.2s, background-size 0.25s;
+      text-decoration: underline;
+      text-decoration-color: rgba(29, 78, 216, 0.25);
+      text-underline-offset: 3px;
     }
-    .pub-title a:hover { color: var(--accent); background-size: 100% 1px; }
-    .pub-authors { font-size: 0.8rem; color: var(--text2); line-height: 1.65; }
-    .pub-authors strong { color: var(--accent); font-weight: 600; }
-
-    /* ── FOOTER ── */
+    .authors {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .authors strong { color: var(--text); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .contact-link {
+      min-height: 68px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+    .contact-link span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .contact-link strong {
+      display: block;
+      margin-top: 4px;
+      color: var(--text);
+      font-size: 14px;
+      word-break: break-word;
+    }
     footer {
-      background: transparent;
-      border-top: 1px solid var(--border);
-      text-align: center; padding: 2.5rem 2rem;
-      color: var(--text3); font-size: 0.8rem; position: relative; z-index: 1;
+      padding: 28px 0 42px;
+      color: var(--soft);
+      font-size: 13px;
     }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 720px) {
-      nav { padding: 0 1.25rem; }
-      .nav-links { gap: 1.25rem; }
-      .hero-inner { gap: 2.2rem; justify-content: center; text-align: center; padding: 3.5rem 1.5rem; }
-      .hero-photo-ring { width: 148px; height: 148px; }
-      .hero-photo-wrap::before { inset: -10px; }
-      .hero-eyebrow { justify-content: center; }
-      .research-tags { justify-content: center; }
-      .reviewer-row { justify-content: center; }
-      .hero-links { justify-content: center; }
-      section { padding: 3.5rem 1.25rem; }
-      .pub-item { padding-left: 0; }
+    @media (max-width: 860px) {
+      .nav, main, footer { width: min(100% - 28px, 1120px); }
+      .nav-links { gap: 14px; font-size: 13px; }
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        gap: 34px;
+        padding: 42px 0 46px;
+      }
+      .profile { justify-self: start; }
+      .profile-photo { width: min(220px, 64vw); }
+      .section-head {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .content-indent { margin-left: 0; }
+      .about-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pub { grid-template-columns: 1fr; gap: 8px; }
+      .contact-grid { grid-template-columns: 1fr; }
     }
-
-    /* ── REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 520px) {
+      .nav { align-items: flex-start; flex-direction: column; padding: 12px 0; gap: 8px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .headline { font-size: 20px; }
+    }
   </style>
 </head>
 <body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top">Yu Lei</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#focus">Research</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-
-<!-- NAV -->
-<nav>
-  <span class="nav-logo">Yu Lei</span>
-  <ul class="nav-links">
-    <li><a href="#publications">Publications</a></li>
-    <li><a href="mailto:leiyu0210@gmail.com">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-inner">
-    <div class="hero-photo-wrap reveal">
-      <div class="hero-photo-ring">
-        <img class="hero-photo" src="you.jpg" alt="Yu Lei" />
-      </div>
-    </div>
-    <div class="hero-text reveal">
-      <p class="hero-eyebrow">Researcher &amp; Engineer</p>
-      <h1 class="hero-name">Yu Lei</h1>
-      <p class="hero-tagline">
-        M.Sc. from Beijing University of Posts and Telecommunications (BUPT),
-        currently a researcher at Kuaishou Technology.
-      </p>
-      <div class="research-tags">
-        <span class="rtag">LLM Context Compression</span>
-        <span class="rtag">Agent</span>
-        <span class="rtag">Generative Modeling</span>
-      </div>
-      <div class="reviewer-row">
-        <span class="reviewer-label">Reviewer</span>
-        <span class="reviewer-chip">ACL</span>
-        <span class="reviewer-chip">EMNLP</span>
-        <span class="reviewer-chip">KDD</span>
-      </div>
-      <div class="hero-links">
-        <a class="btn btn-primary" href="#publications">Publications</a>
-        <a class="btn btn-outline" href="https://scholar.google.com/citations?user=BQlzwTMAAAAJ&hl=zh-CN" target="_blank" rel="noopener">Google Scholar</a>
-        <a class="btn btn-outline" href="mailto:leiyu0210@gmail.com">Contact</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PUBLICATIONS -->
-<section id="publications">
-  <div class="container">
-    <h2 class="section-title reveal">Publications</h2>
-
-    <!-- Preprint -->
-    <div class="pub-year-group reveal">
-      <div class="pub-year-label">Preprint</div>
-
-      <div class="pub-item">
-        <div class="pub-index"></div>
-        <div class="pub-body">
-          <div class="pub-meta">
-            <span class="badge badge-preprint">Under Review</span>
-            <span class="badge badge-cofirst">Co-first Author</span>
-          </div>
-          <p class="pub-title"><a href="https://arxiv.org/abs/2604.27660" target="_blank" rel="noopener">From Context to Skills: Can Language Models Learn from Context Skillfully?</a></p>
-          <p class="pub-authors">Shuzheng Si*, Haozhe Zhao*, <strong>Yu Lei*</strong>, Qingyi Wang*, Dingwei Chen, Zhitong Wang, Zhenhailong Wang, Kangyang Luo, Zheng Wang, Gang Chen, Fanchao Qi, Minjia Zhang, Maosong Sun</p>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">LLM · Agent · Recommendation & Ads · AI for Society</p>
+        <h1 id="hero-title">Yu Lei</h1>
+        <p class="headline">I study how large language models learn from context, retrieve evidence, compress information, make decisions, and align with human values in realistic tasks.</p>
+        <p class="intro">
+          My work bridges research systems and industrial algorithms, spanning LLM agents, context learning, long-context compression, recommender systems, ad bidding, financial AI, and AI for society.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#focus">Research & Publications</a>
+          <a class="button" href="https://scholar.google.com/citations?user=BQlzwTMAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
         </div>
       </div>
 
-      <div class="pub-item">
-        <div class="pub-index"></div>
-        <div class="pub-body">
-          <div class="pub-meta">
-            <span class="badge badge-preprint">Under Review</span>
-            <span class="badge badge-cofirst">Co-first Author</span>
-          </div>
-          <p class="pub-title"><a href="https://arxiv.org/pdf/2512.14244" target="_blank" rel="noopener">From Context to EDUs: Faithful and Structured Context Compression via Elementary Discourse Unit Decomposition</a></p>
-          <p class="pub-authors">Yiqing Zhou*, <strong>Yu Lei*</strong>, Shuzheng Si*, Qingyan Sun, Wei Wang, Yifei Wu, Hao Wen, Gang Chen, Fanchao Qi, Maosong Sun</p>
+      <aside class="profile" aria-label="Profile photo and summary">
+        <img class="profile-photo" src="your.JPG" alt="Portrait of Yu Lei" />
+        <div class="profile-meta">
+          <strong>AI researcher and algorithm engineer</strong>
+          <span>LLMs · Agents · Recommendation · AI for Society</span>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <h2 id="about-title">About</h2>
+        <p class="section-note">I work at the intersection of research questions and deployed systems, turning ideas into experiments, evaluation tools, automation workflows, and product-facing models.</p>
+      </div>
+      <div class="content-indent">
+        <p class="section-note">
+          I am especially interested in reliable decision-making under incomplete information, long-horizon tasks, and real operational constraints. Across RAG, context compression, recommendation, advertising, financial risk modeling, and value alignment, the common question is how to help models reason with limited evidence and competing objectives.
+        </p>
+        <p class="section-note">
+          I received my academic master's degree in Intelligent Science and Technology from the School of Artificial Intelligence, Beijing University of Posts and Telecommunications.
+        </p>
+        <div class="about-grid">
+          <div class="metric"><strong>10+</strong><span>papers and submissions</span></div>
+          <div class="metric"><strong>Multiple</strong><span>deployed strategies and systems</span></div>
         </div>
       </div>
+    </section>
 
-      <div class="pub-item">
-        <div class="pub-index"></div>
-        <div class="pub-body">
-          <div class="pub-meta">
-            <span class="badge badge-preprint">Under Review</span>
-            <span class="badge badge-cofirst">Co-first Author</span>
-          </div>
-          <p class="pub-title"><a href="https://arxiv.org/pdf/2511.18743" target="_blank" rel="noopener">RhinoInsight: Improving Deep Research through Control Mechanisms for Model Behavior and Context</a></p>
-          <p class="pub-authors"><strong>Yu Lei*</strong>, Shuzheng Si*, Wei Wang*, Yifei Wu, Gang Chen, Fanchao Qi, Maosong Sun</p>
-        </div>
+    <section id="focus" aria-labelledby="focus-title">
+      <div class="section-head">
+        <h2 id="focus-title">Research & Publications</h2>
       </div>
 
-      <div class="pub-item">
-        <div class="pub-index"></div>
-        <div class="pub-body">
-          <div class="pub-meta">
-            <span class="badge badge-preprint">Under Review</span>
+      <div class="focus-list content-indent">
+        <article class="focus-item">
+          <div>
+            <h3>LLM Agents, Context Learning, and Long-Context Compression</h3>
+            <p class="focus-summary">I study how large language models use external context: planning and evidence management for deep research, learning reusable skills from long contexts, and compressing information while preserving factual memory.</p>
+            <ul class="focus-points">
+              <li>Built agentic research systems and automation workflows for evidence retrieval, context control, report writing, experiment debugging, and knowledge capture.</li>
+              <li>Investigated context-to-skill learning and faithful context compression as complementary ways to make long-context reasoning more reliable.</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Agentic RAG</span>
+              <span class="tag">Context Learning</span>
+              <span class="tag">Context Compression</span>
+            </div>
+            <div class="source"><span>Tsinghua NLP Lab</span><span>Kuaishou</span></div>
           </div>
-          <p class="pub-title"><a href="https://arxiv.org/abs/2510.17880" target="_blank" rel="noopener">Outraged AI: Large Language Models Prioritise Emotion over Cost in Fairness Enforcement</a></p>
-          <p class="pub-authors">Hao Liu, Yiqing Dai, Haotian Tan, <strong>Yu Lei</strong>, Yujia Zhou, Zhen Wu</p>
-        </div>
-      </div>
-    </div>
 
-    <!-- 2026 -->
-    <div class="pub-year-group reveal">
-      <div class="pub-year-label">2026</div>
-
-      <div class="pub-item">
-        <div class="pub-index"></div>
-        <div class="pub-body">
-          <div class="pub-meta">
-            <span class="badge badge-venue">KDD 2026</span>
-            <span class="badge badge-oral">Oral</span>
+          <div class="pub-group">
+            <div class="pub-group-title">Representative papers</div>
+            <ol class="pub-list">
+              <li class="pub">
+                <div class="pub-badges"><span class="badge role">Co-first</span><span class="badge submitted">NeurIPS 2026 Under Review</span></div>
+                <div>
+                  <p class="pub-title"><a href="https://arxiv.org/abs/2604.27660" target="_blank" rel="noopener">From Context to Skills: Can Language Models Learn from Context Skillfully?</a></p>
+                  <p class="authors">Shuzheng Si*, Haozhe Zhao*, <strong>Yu Lei*</strong>, Qingyi Wang*, Dingwei Chen, Zhitong Wang, Zhenhailong Wang, Kangyang Luo, Zheng Wang, Gang Chen, Fanchao Qi, Minjia Zhang, Maosong Sun.</p>
+                </div>
+              </li>
+              <li class="pub">
+                <div class="pub-badges"><span class="badge role">Co-first</span><span class="badge submitted">EMNLP 2026 Under Review</span></div>
+                <div>
+                  <p class="pub-title"><a href="https://arxiv.org/abs/2512.14244" target="_blank" rel="noopener">From Context to EDUs: Faithful and Structured Context Compression via Elementary Discourse Unit Decomposition</a></p>
+                  <p class="authors">Yiqing Zhou*, <strong>Yu Lei*</strong>, Shuzheng Si*, Qingyan Sun, Wei Wang, Yifei Wu, Hao Wen, Gang Chen, Fanchao Qi, Maosong Sun.</p>
+                </div>
+              </li>
+              <li class="pub">
+                <div class="pub-badges"><span class="badge role">First Author</span><span class="badge submitted">EMNLP 2026 Under Review</span></div>
+                <div>
+                  <p class="pub-title"><a href="https://arxiv.org/abs/2511.18743" target="_blank" rel="noopener">RhinoInsight: Improving Deep Research through Control Mechanisms for Model Behavior and Context</a></p>
+                  <p class="authors"><strong>Yu Lei</strong>, Shuzheng Si, Wei Wang, Yifei Wu, Gang Chen, Fanchao Qi, Maosong Sun.</p>
+                </div>
+              </li>
+            </ol>
           </div>
-          <p class="pub-title"><a href="https://arxiv.org/pdf/2410.10398" target="_blank" rel="noopener">Are LLMs Socially Adaptive? Contrasting Belief Evolution in Large Language Models and Humans</a></p>
-          <p class="pub-authors"><strong>Yu Lei</strong>, Hao Liu, Chengxing Xie, Songjia Liu, Zhiyu Yin, Canyu Chen, Guohao Li, Philip Torr, Zhen Wu</p>
-        </div>
-      </div>
+        </article>
 
-      <div class="pub-item">
-        <div class="pub-index"></div>
-        <div class="pub-body">
-          <div class="pub-meta">
-            <span class="badge badge-venue">ACL 2026 Industry Track</span>
-            <span class="badge badge-oral">Oral</span>
+        <article class="focus-item">
+          <div>
+            <h3>Generative Recommendation, Ad Bidding, and Financial AI</h3>
+            <p class="focus-summary">I work on decision systems under resource and objective constraints, including cold-start content allocation, automated ad bidding, and multimodal financial risk modeling.</p>
+            <ul class="focus-points">
+              <li>Explored user-to-photo recommendation and cold-start exposure allocation, connecting platform resource constraints with generative recommendation objectives.</li>
+              <li>Built deployed ad bidding and financial AI systems, including generative bidding, offline bidding simulation, multimodal risk prediction, and financial credit LLMs.</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Generative Recommendation</span>
+              <span class="tag">Ad Bidding</span>
+              <span class="tag">Financial LLM</span>
+            </div>
+            <div class="source"><span>Kuaishou</span><span>Meituan Waimai Ads</span><span>DiDi</span></div>
           </div>
-          <p class="pub-title"><a href="https://arxiv.org/pdf/2404.13004" target="_blank" rel="noopener">A Unified Framework for Modeling Heterogeneous Financial Data via Dual-Granularity Prompting</a></p>
-          <p class="pub-authors"><strong>Yu Lei</strong>, Zixuan Wang, Yiqing Feng, Junru Zhang, Yahui Li, Chu Liu, Tongyao Wang</p>
-        </div>
-      </div>
 
-      <div class="pub-item">
-        <div class="pub-index"></div>
-        <div class="pub-body">
-          <div class="pub-meta">
-            <span class="badge badge-venue">KDD 2026</span>
+          <div class="pub-group">
+            <div class="pub-group-title">Representative papers</div>
+            <ol class="pub-list">
+              <li class="pub">
+                <div class="pub-badges"><span class="badge role">First Author</span><span class="badge venue">KDD 2026</span></div>
+                <div>
+                  <p class="pub-title"><a href="https://www.arxiv.org/abs/2508.02002" target="_blank" rel="noopener">Generative Large-Scale Pre-trained Models for Automated Ad Bidding Optimization</a></p>
+                  <p class="authors"><strong>Yu Lei</strong>, Jiayang Zhao, Yilei Zhao, Zhaoqi Zhang, Linyou Cai, Qianlong Xie, Xingxing Wang.</p>
+                </div>
+              </li>
+              <li class="pub">
+                <div class="pub-badges"><span class="badge role">First Author</span><span class="badge venue">ACL 2026 Industry Track Oral</span></div>
+                <div>
+                  <p class="pub-title"><a href="https://arxiv.org/pdf/2404.13004" target="_blank" rel="noopener">A Unified Framework for Modeling Heterogeneous Financial Data via Dual-Granularity Prompting</a></p>
+                  <p class="authors"><strong>Yu Lei</strong>, Zixuan Wang, Yiqing Feng, Junru Zhang, Yahui Li, Chu Liu, Tongyao Wang.</p>
+                </div>
+              </li>
+              <li class="pub">
+                <div class="pub-badges"><span class="badge role">First Author</span><span class="badge venue">ICDE 2025 Workshop</span></div>
+                <div>
+                  <p class="pub-title"><a href="https://arxiv.org/pdf/2502.16159" target="_blank" rel="noopener">Zigong 1.0: A large language model for financial credit</a></p>
+                  <p class="authors"><strong>Yu Lei</strong>, Zixuan Wang, Chu Liu, Tongyao Wang.</p>
+                </div>
+              </li>
+            </ol>
           </div>
-          <p class="pub-title"><a href="https://dl.acm.org/doi/pdf/10.1145/3770854.3783956" target="_blank" rel="noopener">Generative Large-Scale Pre-trained Models for Automated Ad Bidding Optimization</a></p>
-          <p class="pub-authors"><strong>Yu Lei</strong>, Jiayang Zhao, Yilei Zhao, Zhaoqi Zhang, Linyou Cai, Qianlong Xie, Xingxing Wang</p>
-        </div>
-      </div>
+        </article>
 
-      <!-- HIDDEN: uncomment to re-enable -->
-      <div class="pub-item">
-        <div class="pub-index"></div>
-        <div class="pub-body">
-          <div class="pub-meta">
-            <span class="badge badge-venue">AAAI 2026</span>
+        <article class="focus-item">
+          <div>
+            <h3>AI for Society, Safety, and Brain-LLM Alignment</h3>
+            <p class="focus-summary">I use neuroscience and social science perspectives to understand LLM representations, behavioral evolution, value alignment, and human-like responses in social settings.</p>
+            <ul class="focus-points">
+              <li>Compared LLM embeddings with human fMRI responses to study brain-like hierarchical representations in language models.</li>
+              <li>Studied socially adaptive belief evolution, fairness enforcement, prosocial behavior, and moral decision-making through LLM experiments and agent simulations.</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">LLM Evaluation</span>
+              <span class="tag">Value Alignment</span>
+              <span class="tag">Agent Simulation</span>
+            </div>
+            <div class="source"><span>BUPT</span><span>Tsinghua School of Social Sciences</span><span>LMU Munich</span><span>Oxford</span></div>
           </div>
-          <p class="pub-title"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/37022/40984" target="_blank" rel="noopener">Do Large Language Models Think Like the Brain? Sentence-Level Evidences from Layer-Wise Embeddings and fMRI</a></p>
-          <p class="pub-authors"><strong>Yu Lei</strong>, Xingyang Ge, Yi Zhang, Yiming Yang, Bolei Ma</p>
-        </div>
-      </div>
-     
 
-      <div class="pub-item">
-        <div class="pub-index"></div>
-        <div class="pub-body">
-          <div class="pub-meta">
-            <span class="badge badge-journal">Science China Tech. Sci.</span>
+          <div class="pub-group">
+            <div class="pub-group-title">Representative papers</div>
+            <ol class="pub-list">
+              <li class="pub">
+                <div class="pub-badges"><span class="badge role">First Author</span><span class="badge venue">KDD 2026 Oral</span></div>
+                <div>
+                  <p class="pub-title"><a href="https://arxiv.org/pdf/2410.10398" target="_blank" rel="noopener">Are LLMs Socially Adaptive? Contrasting Belief Evolution in Large Language Models and Humans</a></p>
+                  <p class="authors"><strong>Yu Lei</strong>, Hao Liu, Chengxing Xie, Songjia Liu, Zhiyu Yin, Canyu Chen, Guohao Li, Philip Torr, Zhen Wu.</p>
+                </div>
+              </li>
+              <li class="pub">
+                <div class="pub-badges"><span class="badge role">First Author</span><span class="badge venue">AAAI 2026</span></div>
+                <div>
+                  <p class="pub-title"><a href="https://arxiv.org/pdf/2505.22563" target="_blank" rel="noopener">Do Large Language Models Think Like the Brain? Sentence-Level Evidences from Layer-Wise Embeddings and fMRI</a></p>
+                  <p class="authors"><strong>Yu Lei</strong>, Xingyang Ge, Yi Zhang, Yiming Yang, Bolei Ma.</p>
+                </div>
+              </li>
+              <li class="pub">
+                <div class="pub-badges"><span class="badge role">Co-first</span><span class="badge venue">Science China Tech. Sci.</span></div>
+                <div>
+                  <p class="pub-title">Prosocial behavior in Large Language Models: Value alignment and affective mechanisms</p>
+                  <p class="authors">Hao Liu*, <strong>Yu Lei*</strong>, Zhen Wu.</p>
+                </div>
+              </li>
+              <li class="pub">
+                <div class="pub-badges"><span class="badge role">Contributor</span><span class="badge submitted">Nature Human Behaviour Under Review</span></div>
+                <div>
+                  <p class="pub-title"><a href="https://arxiv.org/pdf/2510.17880" target="_blank" rel="noopener">Outraged AI: Large language models prioritise emotion over cost in fairness enforcement</a></p>
+                  <p class="authors">Hao Liu, Yiqing Dai, Haotian Tan, <strong>Yu Lei</strong>, Yujia Zhou, Zhen Wu.</p>
+                </div>
+              </li>
+            </ol>
           </div>
-          <p class="pub-title"><a href="https://link.springer.com/article/10.1007/s11431-025-2977-0" target="_blank" rel="noopener">Prosocial Behavior in Large Language Models: Value Alignment and Affective Mechanisms</a></p>
-          <p class="pub-authors">Hao Liu, <strong>Yu Lei</strong>, Zhen Wu</p>
-        </div>
+        </article>
       </div>
-    </div>
+    </section>
 
-    <!-- 2025 -->
-    <div class="pub-year-group reveal">
-      <div class="pub-year-label">2025</div>
-
-      <div class="pub-item">
-        <div class="pub-index"></div>
-        <div class="pub-body">
-          <div class="pub-meta">
-            <span class="badge badge-venue">ICDE 2025 Workshop</span>
-          </div>
-          <p class="pub-title"><a href="https://ieeexplore.ieee.org/document/11108156" target="_blank" rel="noopener">Zigong 1.0: A Large Language Model for Financial Credit</a></p>
-          <p class="pub-authors"><strong>Yu Lei</strong>, Zixuan Wang, Chu Liu, Tongyao Wang</p>
-        </div>
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="section-head">
+        <h2 id="contact-title">Contact</h2>
+        <p class="section-note">Feel free to reach out by email or visit Google Scholar for a fuller publication record.</p>
       </div>
-    </div>
+      <div class="contact-grid content-indent">
+        <a class="contact-link" href="mailto:leiyu0210@gmail.com">
+          <span>Email</span>
+          <strong>leiyu0210@gmail.com</strong>
+        </a>
+        <a class="contact-link" href="https://scholar.google.com/citations?user=BQlzwTMAAAAJ&hl=en" target="_blank" rel="noopener">
+          <span>Scholar</span>
+          <strong>Google Scholar</strong>
+        </a>
+        <a class="contact-link" href="#top">
+          <span>Homepage</span>
+          <strong>leiyu0210.github.io</strong>
+        </a>
+      </div>
+    </section>
+  </main>
 
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>&copy; 2026 Yu Lei</p>
-</footer>
-
-<script>
-  const observer = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
-    { threshold: 0.08 }
-  );
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
+  <footer>© 2026 Yu Lei</footer>
 </body>
 </html>
